@@ -22,7 +22,7 @@ public class CSVJoiner {
         final String csvWorkersFileName = args[0];
         final String csvDepartmentsFileName = args[1];
 
-        // Check that both files exist and terminating the program for case if not
+        // Check that both files exist. Terminate the program for case if they aren't exist.
         Arrays.asList(csvWorkersFileName, csvDepartmentsFileName).forEach(name -> {
             if (!new File(name).exists()) {
                 System.out.println("File '" + name + "' doesn't exist!");
@@ -39,7 +39,7 @@ public class CSVJoiner {
         List<String[]> listDepartments = new LinkedList<>();
 
         // Parsing the files
-        // Terminating the program while exceptions
+        // Terminating the program in case of exceptions
         try {
             listWorkers = parser.parse(csvWorkersFileName);
             listDepartments = parser.parse(csvDepartmentsFileName);
@@ -52,13 +52,14 @@ public class CSVJoiner {
         Logger.outList("csv workers file content:", listWorkers);
         Logger.outList("csv departments file content:", listDepartments);
 
-        // removing first line from lists with names of fields
+        // Removing first lines from each file.
+        // These lines have description of fields and this's not real line of data
         if (listWorkers.size() > 0) listWorkers.remove(0);
         if (listDepartments.size() > 0) listDepartments.remove(0);
 
-        // Testing the parsed tables for correct amount of elements in rows:
+        // Testing the parsed tables to check the correct amount of elements in rows:
         // 4 elements for Workers table and 2 for Departments.
-        // Terminating the program for case of found incorrect numbers of elements.
+        // Terminating the program for case of detection incorrect numbers of elements.
         Arrays.asList(Arrays.asList(listWorkers, 4, csvWorkersFileName), Arrays.asList(listDepartments, 2, csvDepartmentsFileName)).forEach(element -> {
             List<String[]> csvFileContent = (List<String[]>)element.get(0);
             int amountOfFields = (int)element.get(1);
@@ -71,7 +72,7 @@ public class CSVJoiner {
             });
         });
 
-        // Converting the Department table to HashMap to simplify and speedup Joining process
+        // Converting the Department table to HashMap to simplify and speed-up joining process
         HashMap<String, String> departmentTable = new HashMap<>();
         listDepartments.forEach(row -> departmentTable.put(row[0], row[1]));
 
@@ -91,6 +92,6 @@ public class CSVJoiner {
 
     public static void printHelp() {
         System.out.println("Please use this tool with correct set of arguments:");
-        System.out.println("  CSVJoiner <csv workers file> <csv department file>");
+        System.out.println("  CSVJoiner <csv workers file> <csv departments file>");
     }
 }

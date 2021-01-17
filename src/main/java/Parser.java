@@ -2,9 +2,12 @@ import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReaderBuilder;
 
-import java.io.File;
 import java.io.FileReader;
 import java.util.List;
+
+/**
+ * Created by Maksym Savchenko on 1/16/21.
+ */
 
 public class Parser {
 
